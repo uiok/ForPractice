@@ -1,0 +1,54 @@
+﻿@model IPagedList<JobManagerWeb.ViewModels.JobMemberViewModel>
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right pagination_box">
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action(null, new { page }),
+                    new PagedListRenderOptions()
+                    {
+                        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                        DisplayLinkToPreviousPage = PagedListDisplayMode.Never,
+                        DisplayLinkToNextPage = PagedListDisplayMode.Never,
+                        DisplayLinkToIndividualPages = false,
+                        DisplayPageCountAndCurrentLocation = true,
+                        DisplayItemSliceAndTotal = true,
+                        PageCountAndCurrentLocationFormat = "第 {0} 頁 / 共 {1} 頁",
+                        ItemSliceAndTotalFormat = "共 {2} 筆"
+                    })
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action(null, new { page }),
+                         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target" }))
+
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">選取</th>
+                <th scope="col">員工編號</th>
+                <th scope="col">姓名</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="trPeopleFlag">
+                    <td>
+                        <div class="checkbox check-default checkbox-nolabeltex">
+                            <input type="checkbox" name="PeopleFlag" value="@( string.IsNullOrEmpty(item.empid)?"":item.empid )" data-name="@item.name" data-mtype="@item.mtype" />
+                        </div>
+                    </td>                  
+                    <td >
+                        @Html.DisplayFor(m => item.empid, new { @class = "" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.name, new { @class = "" })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

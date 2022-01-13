@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (TempData["SystemMesaage"] != null)
+    {
+        @Html.Partial("MessageDialog", TempData["SystemMesaage"].ToString())
+    }
+}
+
+
+@section PageCss
+{
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+}
+
+<!--  右側區塊  -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">紀錄列表</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <a href="@Url.Action("Create","JobReport")" class="btn btn-primary">新增</a>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#SearchModal">綜合篩選</button>
+            <hr class="sidebar-divider">
+            <div id="TargetArea">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--  右側區塊  -->
+<!--  篩選區  -->
+<div class="modal fade in" id="SearchModal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body sing_up_determine_box">
+                <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0">
+                        <div class="col-md-6">
+                            <label class="form-label semi-bold">工作編號</label>
+                            <div class="input-group">
+                                <input id="jobcode" class="form-control" id="" type="text" placeholder="工作編號" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label semi-bold">工作名稱</label>
+                            <div class="input-group">
+                                <input id="jobtitle" class="form-control" id="" type="text" placeholder="工作名稱" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-row" style="margin: 0 -5px;">
+                    <div class="col-md-6">
+                        <label class="form-label semi-bold">開始日期</label>
+                        <div class="input-group date" id="datetimepicker">
+                            <input type="text" class="form-control" id="starttime" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label semi-bold">結束日期</label>
+                        <div class="input-group date" id="datetimepicker">
+                            <input type="text" class="form-control" id="endtime" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-left">
+                <button type="submit" class="btn btn-success btn-cons" onclick="ChangeData()">確認</button>
+                <button type="button" id="jq-cancel" class="btn btn-white btn-cons" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  篩選區  -->
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $(function () {
+            ChangeData();
+            $("#messageModal").modal("show");
+        });
+        function ChangeData(target) {
+            $.ajax({
+                url: "@Url.Action("PartialIndex", "JobReport")",
+                type: "POST",
+                data: {
+                    jobcode: $("#jobcode").val(),
+                    jobtitle: $("#jobtitle").val(),
+                    starttime: $("#starttime").val(),
+                    endtime: $("#endtime").val()
+                    },
+                success: function (partialViewResult) {
+                    $("#TargetArea").empty();
+                    $("#TargetArea").html(partialViewResult);
+                    $("#SearchModal").modal('hide');
+                }
+            });
+        }
+
+        function ShowDetail(target) {
+                debugger
+              $.ajax({
+                    url: "@Url.Action("PeopleData", "JobReport")",
+                    type: "POST",
+                    data: {
+                        id: target
+                        },
+                    success: function (jsonObj) {
+                        $("#DetailArea").empty();
+                        debugger;
+                        var showText = "";
+                        for (var i = 0; i < jsonObj.length; i++) {
+                            showText += jsonObj[i].empid + "(" + jsonObj[i].name + ") ";
+                        }
+                        $("#DetailArea").html(showText);
+                         $('#DetailModal').modal('show');
+                    }
+              });
+        }
+
+    </script>
+}

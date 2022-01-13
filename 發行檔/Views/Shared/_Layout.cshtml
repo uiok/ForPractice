@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 管理後臺</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("PageCss", false)
+    @RenderSection("header", required: false)
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 左側功能列 -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+       
+            <!-- 分隔線 -->
+            <hr class="sidebar-divider">
+            <!-- 工作紀錄 -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                  
+                    <span>工作紀錄管理</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner">
+                        <a class="collapse-item" href="@Url.Action("Index","JobReport")">紀錄列表 </a>
+                    </div>
+                </div>
+            </li>
+            <!-- 工作紀錄 -->
+            <!-- 分隔線 -->
+            <hr class="sidebar-divider">
+
+        </ul>
+        <!-- 左側功能列 -->
+        <!--右側功能 -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- 內文區塊 -->
+            <div id="content">
+                <!-- 上方固定區塊 -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- 右側登入者資訊 -->
+                        <!-- 可擴充登入者功能 -->
+                        <!-- 右側登入者資訊 -->
+                    </ul>
+                </nav>
+                <!-- 上方固定區塊 -->
+                <!-- 功能區塊 -->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+
+                <!-- 功能區塊 -->
+            </div>
+            <!-- 內文區塊 -->
+            <!-- 下方固定區塊 -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- 下方固定區塊 -->
+        </div>
+        <!-- 右側功能 -->
+    </div>
+
+
+    <!--  檢視區  -->
+    <div class="modal fade in" id="DetailModal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="DetailArea">
+
+                </div>
+           
+            </div>
+        </div>
+    </div>
+    <!--  檢視區  -->
+
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+    <script src="~/Scripts/datepicker-tw.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('[id="datetimepicker"]').datetimepicker({
+           
+                defaultDate: new Date(),
+                locale: "zh-tw",
+            }).on('click', function () {
+                $(this).data('DateTimePicker').toggle();
+            });
+        
+        });
+
+
+    </script>
+</body>
+
+
+</html>

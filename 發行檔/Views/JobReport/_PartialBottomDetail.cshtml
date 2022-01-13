@@ -1,0 +1,134 @@
+﻿@*@model  List<JobManagerWeb.Models.JobDetail>
+
+    <div class="card-body">
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="AddOption()">新增紀錄</button>
+        </div>
+        <div class="table-responsive" id="targetShopArea">
+            <table class="table table-bordered" id="OrderDetailTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th> 序</th>
+                        <th>工作說明</th>
+                        <th>預計開始時間</th>
+                        <th>預計結束時間</th>
+                        <th>實際開始時間</th>
+                        <th>實際結束時間</th>
+                        <th>備註</th>
+                        <th>建立者</th>
+                            <th>建立時間</th>
+                            <th>修改者</th>
+                            <th>修改時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var gId = Guid.NewGuid();
+                            @Html.Hidden($"JobDetailModelList.Index", gId)
+                             @Html.Hidden($"JobDetailModelList[{i}].description", @Model[i].description)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledbtime", @Model[i].scheduledbtime)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].scheduledetime)
+
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].actualbtime)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].actualetime)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].remark)
+                                @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].adduser)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].addtime)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].chguser)
+                                 @Html.Hidden($"JobDetailModelList[{i}].scheduledetime", @Model[i].chgtime)
+                            <tr>
+                                <td>
+                                    @(i + 1))
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].description" value=" @Model[i].description" />
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].scheduledbtime" value=" @Model[i].scheduledbtime" />
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].scheduledetime" value=" @Model[i].scheduledetime" />
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].actualbtime" value=" @Model[i].actualbtime" />
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].actualetime" value=" @Model[i].actualetime" />
+                                </td>
+                                <td>
+                                    <input type="text" name="JobDetailModelList[@(gId)].remark" value=" @Model[i].remark" />
+                                </td>
+                                <td>
+                                        @Model[i].adduser
+                                    </td>
+                                    <td>
+                                        @Model[i].addtime
+                                    </td>
+                                    <td>
+                                        @Model[i].chguser
+                                    </td>
+                                    <td>
+                                        @Model[i].chgtime
+                                    </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" onclick="DelOption('this')">刪除</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+
+    </div>*@
+
+@{
+    var gId = Guid.NewGuid();
+    var count = ViewBag.Count;
+}
+
+<tr>
+    <td>
+        @count
+        @Html.Hidden($"JobDetailModelList.Index", gId)
+    </td>
+    <td>
+        <div class="input-group">
+
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].description" />
+        </div>
+    </td>
+    <td>
+        <div class="input-group" id="pretimepicker">
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].scheduledbtime" />
+        </div>
+    </td>
+    <td>
+        <div class="input-group date" id="pretimepicker">
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].scheduledetime" />
+        </div>
+    </td>
+    <td>
+        <div class="input-group date" id="pretimepicker">
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].actualbtime" />
+        </div>
+    </td>
+    <td>
+        <div class="input-group date" id="pretimepicker">
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].actualetime" />
+        </div>
+    </td>
+    <td>
+        <div class="input-group">
+            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].remark" />
+        </div>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" onclick="DelOption(this)">刪除</button>
+    </td>
+</tr>
