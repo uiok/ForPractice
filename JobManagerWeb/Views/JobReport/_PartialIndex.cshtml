@@ -1,0 +1,89 @@
+﻿@model IPagedList<JobManagerWeb.Models.JobSheet>
+@using JobManagerWeb.Enums
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right pagination_box">
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action(null, new { page }),
+                    new PagedListRenderOptions()
+                    {
+                        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                        DisplayLinkToPreviousPage = PagedListDisplayMode.Never,
+                        DisplayLinkToNextPage = PagedListDisplayMode.Never,
+                        DisplayLinkToIndividualPages = false,
+                        DisplayPageCountAndCurrentLocation = true,
+                        DisplayItemSliceAndTotal = true,
+                        PageCountAndCurrentLocationFormat = "第 {0} 頁 / 共 {1} 頁",
+                        ItemSliceAndTotalFormat = "共 {2} 筆"
+                    })
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action(null, new { page }),
+                         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target" }))
+
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 1%;">序</th>
+                <th style="width: 10%;">工作編號</th>
+                <th style="width: 10%;">工作類型</th>
+                <th style="width: 10%;">工作名稱</th>
+                <th style="width: 5%;">開始時間</th>
+                <th style="width: 5%;">結束時間</th>
+                <th style="width: 10%;">工作成員</th>
+                <th style="width: 10%;">建立者</th>
+                <th style="width: 5%;">建立時間</th>
+                <th style="width: 10%;">修改者</th>
+                <th style="width: 5%;">修改時間</th>
+                <th style="width: 5%;">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+            <tr>
+                <td >
+                    @(i + 1)
+                </td>
+                <td >
+                    @Html.DisplayFor(m => Model[i].jobcode, new { @class = "" })
+                </td>
+                <td>
+                    @(((JobType)int.Parse(Model[i].jobtype)).ToString())
+                </td>
+                <td >
+                    @Html.DisplayFor(m => Model[i].jobtitle, new { @class = "" })
+                </td>
+                <td>
+                    @(Model[i].starttime.HasValue ? Model[i].starttime.Value.ToString("yyyy/MM/dd hh:mm") : "")
+                </td>
+                <td>
+                    @(Model[i].endtime.HasValue ? Model[i].endtime.Value.ToString("yyyy/MM/dd hh:mm") : "")
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-toggle="modal" onclick="ShowDetail('@Model[i].jobcode.Trim()')">人員</button>
+                </td>
+
+                <td >
+                    @Html.DisplayFor(m => Model[i].adduser, new { @class = "" })
+                </td>
+
+                <td>
+                    @(Model[i].addtime.HasValue ?Model[i].addtime.Value.ToString("yyyy/MM/dd hh:mm"):"")
+                </td>
+                <td>
+                    @Html.DisplayFor(m => Model[i].chguser, new { @class = "" })
+                </td>
+                <td>
+                    @(Model[i].chgtime.HasValue ? Model[i].chgtime.Value.ToString("yyyy/MM/dd hh:mm") : "")
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","JobReport" ,new { id = Model[i].jobcode.Trim() })" class="btn btn-warning">編輯</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

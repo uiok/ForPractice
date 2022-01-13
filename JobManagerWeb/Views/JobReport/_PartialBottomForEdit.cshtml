@@ -1,0 +1,65 @@
+﻿@model  List<JobManagerWeb.Models.JobDetail>
+
+<table class="table table-bordered" id="OrderDetailTable" cellspacing="0">
+    <thead>
+        <tr>
+            <th style="width: 1%;">序</th>
+            <th style="width: 10%;">工作說明</th>
+            <th style="width: 10%;">預計開始時間</th>
+            <th style="width: 10%;">預計結束時間</th>
+            <th style="width: 10%;">實際開始時間</th>
+            <th style="width: 10%;">實際結束時間</th>
+            <th style="width: 10%;">備註</th>
+            <th style="width: 5%;">操作</th>
+        </tr>
+    </thead>
+    <tbody id="peopleDetailArea">
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var gId = Guid.NewGuid();
+            @Html.Hidden($"JobDetailModelList.Index", gId)
+            <tr>
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="JobDetailModelList[@(gId)].description" value="@Model[i].description" />
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <div class="input-group date" id="pretimepicker">
+                            <input type="text" class="form-control" name="JobDetailModelList[@(gId)].scheduledbtime" value="@Model[i].scheduledbtime.Value.ToString("yyyy/MM/dd hh:mm")" />
+                        </div>
+
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group date" id="pretimepicker">
+                        <input type="text" class="form-control" name="JobDetailModelList[@(gId)].scheduledetime" value="@Model[i].scheduledetime.Value.ToString("yyyy/MM/dd hh:mm")" />
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group date" id="pretimepicker">
+                        <input type="text" class="form-control" name="JobDetailModelList[@(gId)].actualbtime" value="@Model[i].actualbtime.Value.ToString("yyyy/MM/dd hh:mm")" />
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group date" id="pretimepicker">
+                        <input type="text" class="form-control" name="JobDetailModelList[@(gId)].actualetime" value="@Model[i].actualetime.Value.ToString("yyyy/MM/dd hh:mm")" />
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="JobDetailModelList[@(gId)].remark" value="@Model[i].remark" />
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="DelOption(this)">刪除</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

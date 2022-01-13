@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WorkRecordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="JobDetail">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="jobcode" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="seqno" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="scheduledbtime" Type="datetime" />
+          <Property Name="scheduledetime" Type="datetime" />
+          <Property Name="actualbtime" Type="datetime" />
+          <Property Name="actualetime" Type="datetime" />
+          <Property Name="datfr" Type="varchar" MaxLength="20" />
+          <Property Name="adduser" Type="varchar" MaxLength="20" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="chguser" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" />
+          <Property Name="remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="JobMember">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="membertype" />
+            <PropertyRef Name="empid" />
+          </Key>
+          <Property Name="jobcode" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="membertype" Type="int" Nullable="false" />
+          <Property Name="empid" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="16" />
+          <Property Name="datfr" Type="varchar" MaxLength="20" />
+          <Property Name="adduser" Type="varchar" MaxLength="20" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="chguser" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" />
+          <Property Name="note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="JobRecord">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="jobcode" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="seqno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="startTime" Type="datetime" />
+          <Property Name="endTime" Type="datetime" />
+          <Property Name="descriptions" Type="nvarchar(max)" />
+          <Property Name="attachedFile" Type="nvarchar" MaxLength="500" />
+          <Property Name="datfr" Type="varchar" MaxLength="20" />
+          <Property Name="adduser" Type="varchar" MaxLength="20" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="chguser" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" />
+          <Property Name="note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="JobSheet">
+          <Key>
+            <PropertyRef Name="jobcode" />
+          </Key>
+          <Property Name="jobcode" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="jobtype" Type="varchar" MaxLength="5" />
+          <Property Name="jobtitle" Type="nvarchar" MaxLength="60" />
+          <Property Name="starttime" Type="datetime" />
+          <Property Name="endtime" Type="datetime" />
+          <Property Name="datfr" Type="varchar" MaxLength="20" />
+          <Property Name="adduser" Type="varchar" MaxLength="20" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="chguser" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MemberInfo">
+          <Key>
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="seqno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="membertype" Type="int" Nullable="false" />
+          <Property Name="empid" Type="nvarchar" MaxLength="20" />
+          <Property Name="name" Type="nvarchar" MaxLength="8" />
+          <Property Name="datfr" Type="nchar" MaxLength="10" />
+          <Property Name="adduser" Type="nchar" MaxLength="10" />
+          <Property Name="addtime" Type="nchar" MaxLength="10" />
+          <Property Name="chguser" Type="nchar" MaxLength="10" />
+          <Property Name="chgtime" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="MessageConfig">
+          <Key>
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="seqno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="5" />
+          <Property Name="message" Type="nvarchar(max)" />
+          <Property Name="datfr" Type="nchar" MaxLength="10" />
+          <Property Name="adduser" Type="nchar" MaxLength="10" />
+          <Property Name="addtime" Type="nchar" MaxLength="10" />
+          <Property Name="chguser" Type="nchar" MaxLength="10" />
+          <Property Name="chgtime" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="WorkRecordModelStoreContainer">
+          <EntitySet Name="JobDetail" EntityType="Self.JobDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobMember" EntityType="Self.JobMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobRecord" EntityType="Self.JobRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobSheet" EntityType="Self.JobSheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberInfo" EntityType="Self.MemberInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageConfig" EntityType="Self.MessageConfig" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WorkRecordModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="JobDetail">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="jobcode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="seqno" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="scheduledbtime" Type="DateTime" Precision="3" />
+          <Property Name="scheduledetime" Type="DateTime" Precision="3" />
+          <Property Name="actualbtime" Type="DateTime" Precision="3" />
+          <Property Name="actualetime" Type="DateTime" Precision="3" />
+          <Property Name="datfr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adduser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="chguser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" Precision="3" />
+          <Property Name="remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JobRecord">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="jobcode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="seqno" Type="Int32" Nullable="false" />
+          <Property Name="startTime" Type="DateTime" Precision="3" />
+          <Property Name="endTime" Type="DateTime" Precision="3" />
+          <Property Name="descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="attachedFile" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="datfr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adduser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="chguser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JobSheet">
+          <Key>
+            <PropertyRef Name="jobcode" />
+          </Key>
+          <Property Name="jobcode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="jobtype" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="jobtitle" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="starttime" Type="DateTime" Precision="3" />
+          <Property Name="endtime" Type="DateTime" Precision="3" />
+          <Property Name="datfr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adduser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="chguser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="WorkRecordEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="JobDetail" EntityType="Self.JobDetail" />
+          <EntitySet Name="JobRecord" EntityType="Self.JobRecord" />
+          <EntitySet Name="JobSheet" EntityType="Self.JobSheet" />
+          <EntitySet Name="JobMember" EntityType="WorkRecordModel.JobMember" />
+          <EntitySet Name="MessageConfig" EntityType="WorkRecordModel.MessageConfig" />
+          <EntitySet Name="MemberInfo" EntityType="WorkRecordModel.MemberInfo" />
+        </EntityContainer>
+        <EntityType Name="JobMember">
+          <Key>
+            <PropertyRef Name="jobcode" />
+            <PropertyRef Name="membertype" />
+            <PropertyRef Name="empid" />
+          </Key>
+          <Property Name="jobcode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="membertype" Type="Int32" Nullable="false" />
+          <Property Name="empid" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="datfr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adduser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="chguser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MessageConfig">
+          <Key>
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="seqno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="datfr" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="adduser" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="addtime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="chguser" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="chgtime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MemberInfo">
+          <Key>
+            <PropertyRef Name="seqno" />
+          </Key>
+          <Property Name="seqno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="membertype" Type="Int32" Nullable="false" />
+          <Property Name="empid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="datfr" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="adduser" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="addtime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="chguser" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="chgtime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WorkRecordModelStoreContainer" CdmEntityContainer="WorkRecordEntities">
+          <EntitySetMapping Name="JobDetail">
+            <EntityTypeMapping TypeName="WorkRecordModel.JobDetail">
+              <MappingFragment StoreEntitySet="JobDetail">
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="seqno" ColumnName="seqno" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="scheduledbtime" ColumnName="scheduledbtime" />
+                <ScalarProperty Name="scheduledetime" ColumnName="scheduledetime" />
+                <ScalarProperty Name="actualbtime" ColumnName="actualbtime" />
+                <ScalarProperty Name="actualetime" ColumnName="actualetime" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobRecord">
+            <EntityTypeMapping TypeName="WorkRecordModel.JobRecord">
+              <MappingFragment StoreEntitySet="JobRecord">
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="seqno" ColumnName="seqno" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="descriptions" ColumnName="descriptions" />
+                <ScalarProperty Name="attachedFile" ColumnName="attachedFile" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSheet">
+            <EntityTypeMapping TypeName="WorkRecordModel.JobSheet">
+              <MappingFragment StoreEntitySet="JobSheet">
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="jobtype" ColumnName="jobtype" />
+                <ScalarProperty Name="jobtitle" ColumnName="jobtitle" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobMember">
+            <EntityTypeMapping TypeName="WorkRecordModel.JobMember">
+              <MappingFragment StoreEntitySet="JobMember">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="empid" ColumnName="empid" />
+                <ScalarProperty Name="membertype" ColumnName="membertype" />
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageConfig">
+            <EntityTypeMapping TypeName="WorkRecordModel.MessageConfig">
+              <MappingFragment StoreEntitySet="MessageConfig">
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="seqno" ColumnName="seqno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberInfo">
+            <EntityTypeMapping TypeName="WorkRecordModel.MemberInfo">
+              <MappingFragment StoreEntitySet="MemberInfo">
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="chguser" ColumnName="chguser" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="adduser" ColumnName="adduser" />
+                <ScalarProperty Name="datfr" ColumnName="datfr" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="empid" ColumnName="empid" />
+                <ScalarProperty Name="membertype" ColumnName="membertype" />
+                <ScalarProperty Name="seqno" ColumnName="seqno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

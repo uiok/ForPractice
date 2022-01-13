@@ -1,0 +1,77 @@
+﻿@model JobManagerWeb.Models.JobSheet
+@{
+
+    var jobMemberList = (List<JobManagerWeb.ViewModels.JobMemberViewModel>)TempData["JobMember"];
+    var EmpidString = "";
+    var showText = "";
+    foreach (var item in jobMemberList)
+    {
+        EmpidString += item.empid + ";" + item.mtype + "/";
+        showText += item.empid + "(" + item.name + ") ";
+    }
+
+}
+
+
+<div class="card-body">
+
+    <h5 id="ship-to-different-address">
+        <label class="checkbox">
+      
+        </label>
+    </h5>
+    <div class="form-group row">
+        <div class="col-sm-12 mb-3 mb-sm-0" id="ShowAddressArea">
+
+            <div class="form-group row">
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="sortType6" class="form-label semi-bold">工作類型</label>
+                    <div class="input-group">
+                        <select class="form-select" aria-label="Default select example" name="JobSheetModel.jobtype">
+                            <option value="0">專案</option>
+                            <option value="1">日誌</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="sortType6" class="form-label semi-bold">工作編號</label>
+                    <div class="input-group">
+                        <input type="hidden" name="JobSheetModel.jobcode" value="@Model.jobcode"/>
+                        @Html.HiddenFor(m => Model.jobcode)
+                        <label>@Model.jobcode</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="sortType6" class="form-label semi-bold">工作名稱</label>
+                    <div class="input-group">
+                        <input name="JobSheetModel.jobtitle" class="form-control" id="" type="text" placeholder="工作名稱" value="@Model.jobtitle">
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="sortType6" class="form-label semi-bold">開始日期</label>
+                    <div class="input-group date" id="datetimepicker">
+                        <input type="text" class="form-control" name="JobSheetModel.starttime" value="@Model.starttime" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="sortType7" class="form-label semi-bold">結束日期</label>
+                    <div class="input-group date" id="datetimepicker">
+                        <input type="text" class="form-control" name="JobSheetModel.endtime" value="@Model.endtime" />
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="input-group" style="padding: 2%;">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" onclick="ShowDetail()">選擇人員</button>
+                        <input type="hidden" name="EmpidString" value="@EmpidString" />
+                    </div>
+                    <div class="form-group" id="targetShopArea">@showText</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
